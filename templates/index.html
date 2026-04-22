@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>レシピ投稿ミニアプリ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="wrap">
+        {% if startup_error_message %}
+        <div class="error-box">{{ startup_error_message }}</div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="success-box">{{ success_message }}</div>
+        {% endif %}
+
+        {% if error_message %}
+        <div class="error-box">{{ error_message }}</div>
+        {% endif %}
+
+        <div class="layout">
+            <div class="card form-card">
+                <h1>レシピ投稿ミニアプリ</h1>
+                <p>「タイトル」「所要分数」「説明」を入力してください。</p>
+
+                <form method="post" action="/">
+                    <input type="hidden" name="id" value="{{ form_data.id }}">
+                    <input type="hidden" name="action" value="{{ 'update' if is_edit else 'create' }}">
+
+                    <div class="field">
+                        <label for="title">タイトル（必須）</label>
+                        <input
+                            id="title"
+                            name="title"
+                            type="text"
+                            maxlength="200"
+                            value="{{ form_data.title }}"
+                            placeholder="例: カレーライス"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="minutes">所要分数（必須・整数・1以上）</label>
+                        <input
+                            id="minutes"
+                            name="minutes"
+                            type="number"
+                            min="1"
+                            step="1"
+                            value="{{ form_data.minutes }}"
+                            placeholder="例: 30"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="description">説明（任意）</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="例: 野菜を切って炒めて煮込みます。"
+                        >{{ form_data.description }}</textarea>
+                    </div>
+
+                    <div class="button-row">
+                        <button type="submit">{{ "更新する" if is_edit else "投稿する" }}</button>
+                        {% if is_edit %}
+                        <a class="cancel-link" href="/">新規入力に戻す</a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+
+            <div class="card list-card">
+                <h2>レシピ一覧（新しい順）</h2>
+
+                {% if recipes %}
+                    {% for recipe in recipes %}
+                    <div class="recipe">
+                        <h3>{{ recipe.title }}</h3>
+                        <div class="meta">
+                            所要分数: {{ recipe.minutes }} 分 /
+                            投稿日時(UTC): {{ recipe.created_at }}
+                        </div>
+                        <div>{{ recipe.description if recipe.description else "説明なし" }}</div>
+
+                        <div class="action-row">
+                            <a class="edit-link" href="/?edit={{ recipe.id }}">編集</a>
+
+                            <form method="post" action="/" class="delete-form" onsubmit="return confirm('削除しますか？');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="{{ recipe.id }}">
+                                <button type="submit" class="delete-button">削除</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="empty">まだレシピはありません。最初の1件を投稿してください。</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

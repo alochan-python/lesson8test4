@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    padding: 24px;
+    background: #f6f8fb;
+    color: #222;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 24px;
+}
+
+.form-card {
+    position: sticky;
+    top: 24px;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+.error-box {
+    background: #fff2f2;
+    border: 1px solid #efb1b1;
+    color: #a11d1d;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.success-box {
+    background: #eef9f0;
+    border: 1px solid #a7dbb0;
+    color: #1d6b2a;
+    padding: 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.field {
+    margin-bottom: 14px;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #cfd7e6;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #fff;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+button,
+.edit-link,
+.cancel-link {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button-row,
+.action-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.cancel-link {
+    background: #6b7280;
+}
+
+.edit-link {
+    background: #2563eb;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.delete-button {
+    background: #dc2626;
+}
+
+.recipe {
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 0;
+}
+
+.recipe:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.meta {
+    color: #666;
+    font-size: 14px;
+    margin: 6px 0 10px;
+}
+
+.empty {
+    color: #666;
+}
+
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .form-card {
+        position: static;
+    }
+}
